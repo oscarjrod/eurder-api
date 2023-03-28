@@ -7,7 +7,7 @@ public class ContactDetailsDto {
     private String address;
     private String phoneNumber;
 
-    public static ContactDetailsDto fromContactDetails(ContactDetails contactDetails) {
+    public static ContactDetailsDto createContactDetailsDto(ContactDetails contactDetails) {
         ContactDetailsDto dto = new ContactDetailsDto();
         dto.setId(contactDetails.getId());
         dto.setEmailAddress(contactDetails.getEmailAddress());

@@ -7,7 +7,7 @@ public class ContactDetailsMapper {
 
     // ContactDetails => DTO
     public ContactDetailsDto toDTO(ContactDetails contactDetails) {
-        return ContactDetailsDto.fromContactDetails(contactDetails);
+        return ContactDetailsDto.createContactDetailsDto(contactDetails);
     }
 
     // DTO => ContactDetails

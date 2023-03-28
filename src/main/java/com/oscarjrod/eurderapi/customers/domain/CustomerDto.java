@@ -7,12 +7,12 @@ public class CustomerDto {
     private String lastName;
     private ContactDetailsDto contactDetails;
 
-    public static CustomerDto fromCustomer(Customer customer) {
+    public static CustomerDto createCustomerDto(Customer customer) {
         CustomerDto dto = new CustomerDto();
         dto.setId(customer.getId());
         dto.setFirstName(customer.getFirstName());
         dto.setLastName(customer.getLastName());
-        dto.setContactDetails(ContactDetailsDto.fromContactDetails(customer.getContactDetails()));
+        dto.setContactDetails(ContactDetailsDto.createContactDetailsDto(customer.getContactDetails()));
         return dto;
     }
 

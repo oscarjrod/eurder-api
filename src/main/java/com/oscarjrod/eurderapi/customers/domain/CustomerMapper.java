@@ -9,7 +9,7 @@ public class CustomerMapper {
 
     // Customer => DTO
     public CustomerDto toDTO(Customer myCustomer) {
-        return CustomerDto.fromCustomer(myCustomer);
+        return CustomerDto.createCustomerDto(myCustomer);
     }
 
     // DTO => Customer
