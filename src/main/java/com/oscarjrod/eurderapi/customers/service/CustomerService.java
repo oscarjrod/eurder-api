@@ -7,12 +7,15 @@ import com.oscarjrod.eurderapi.customers.domain.CustomerMapper;
 import com.oscarjrod.eurderapi.customers.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CustomerService {
 
-    private CustomerRepository customerRepository;
-    private CustomerMapper customerMapper;
-    private ContactDetailsMapper contactDetailsMapper;
+    private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
+    private final ContactDetailsMapper contactDetailsMapper;
 
     public CustomerService(CustomerRepository customerRepository,
                            CustomerMapper customerMapper, ContactDetailsMapper contactDetailsMapper) {
@@ -26,6 +29,15 @@ public class CustomerService {
         Customer savedCustomer = customerRepository.save(createdCustomer);
 
         return customerMapper.toDTO(savedCustomer);
+    }
+
+    public List<CustomerDto> getAllCustomers() {
+        List<CustomerDto> customerDtos = new ArrayList<>();
+        customerRepository.findAll().forEach(
+                customer -> customerDtos.add(CustomerDto.createCustomerDto(customer))
+        );
+
+        return customerDtos;
     }
 
 }

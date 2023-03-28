@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "customers")
 public class CustomerController {
@@ -21,6 +23,12 @@ public class CustomerController {
     @PostMapping(consumes = "application/json", produces = "application/json")
     public CustomerDto createCustomer(@RequestBody CustomerDto customerDto) {
         return customerService.createCustomer(customerDto);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(produces = "application/json")
+    public List<CustomerDto> getAllCustomers() {
+        return customerService.getAllCustomers();
     }
 
 }
