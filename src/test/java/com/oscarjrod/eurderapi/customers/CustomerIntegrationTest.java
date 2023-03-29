@@ -28,7 +28,7 @@ class CustomerIntegrationTest {
     int port;
 
     @Test
-    void givenAnBook_whenAddingBookToController_thenRepositoryContainsThatBook() {
+    void givenAnCustomer_whenAddingCustomerToController_thenRepositoryContainsThatCustomer() {
         //GIVEN
         CustomerDto customerDto = CustomerDto.createCustomerDto(
                 Customer.createCustomer("John", "Doe", contactDetails)
@@ -56,6 +56,7 @@ class CustomerIntegrationTest {
                 CustomerDto.class
         );
 
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(HttpStatus.OK, customerDetailsResponse.getStatusCode());
         assertEquals(1, Objects.requireNonNull(customerDetailsResponse.getBody()).getId());
         assertEquals("John", customerDetailsResponse.getBody().getFirstName());
