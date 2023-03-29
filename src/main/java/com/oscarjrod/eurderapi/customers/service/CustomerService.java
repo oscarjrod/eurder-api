@@ -40,4 +40,11 @@ public class CustomerService {
         return customerDtos;
     }
 
+    public CustomerDto getCustomerById(Long id) {
+        return customerMapper.toDTO(
+                customerRepository.findById(id)
+                        .orElseThrow()
+        );
+    }
+
 }
