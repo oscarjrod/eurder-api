@@ -27,7 +27,7 @@ public class CustomerController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(produces = "application/json")
+    @GetMapping
     public List<Long> getAllCustomersNoDetails() {
         return customerService.getAllCustomers().stream()
                 .map(CustomerDto::getId)
@@ -47,7 +47,7 @@ public class CustomerController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("{id}/details")
+    @GetMapping(produces = "application/json", path = "{id}/details")
     public CustomerDto getCustomerByIdWithDetails(@PathVariable Long id) {
         return customerService.getCustomerById(id);
     }
