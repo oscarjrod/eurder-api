@@ -32,8 +32,8 @@ public class Order {
     public static Order createOrder(Customer customer, List<ItemGroup> itemGroups) {
         Order order = new Order();
         order.setCustomer(customer);
+        order.setTotalPrice(calculateOrderTotalPrice(itemGroups));
         order.setItemGroups(itemGroups);
-        order.setTotalPrice(calculateOrderTotalPrice(itemGroups, order));
         order.setOrderDate(LocalDate.now());
         return order;
     }
@@ -74,12 +74,10 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    private static BigDecimal calculateOrderTotalPrice(List<ItemGroup> itemGroups, Order order) {
-        BigDecimal totalPrice = itemGroups.stream()
+    private static BigDecimal calculateOrderTotalPrice(List<ItemGroup> itemGroups) {
+        return itemGroups.stream()
                 .map(ItemGroup::getItemGroupTotalPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        itemGroups.forEach(order::addItemGroup);
-        return totalPrice;
     }
 
     public void addItemGroup(ItemGroup itemGroup) {
