@@ -1,10 +1,19 @@
 package com.oscarjrod.eurderapi.customers.domain;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class CustomerDto {
 
     private Long id;
+    @NotBlank(message = "First name cannot be empty!")
+    @Size(max = 20, message = "First name cannot be longer than 20 characters!")
     private String firstName;
+    @NotBlank(message = "Last name cannot be empty!")
+    @Size(max = 20, message = "Last name cannot be longer than 20 characters!")
     private String lastName;
+    @Valid
     private ContactDetailsDto contactDetails;
 
     public static CustomerDto createCustomerDto(Customer customer) {

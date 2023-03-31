@@ -4,6 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
@@ -12,9 +16,15 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotBlank(message = "Name cannot be empty!")
     private String name;
+    @NotBlank(message = "Description cannot be empty!")
     private String description;
+    @NotNull(message = "Price cannot be empty!")
+    @DecimalMin(value = "0.01", message = "Price must be greater than or at least equal to 0.01!")
     private BigDecimal price;
+    @NotNull(message = "Stock cannot be empty!")
+    @Min(value = 0, message = "Stock must be greater than or equal to 0!")
     private long stock;
 
     public static Item createItem(String name, String description, BigDecimal price, long stock) {

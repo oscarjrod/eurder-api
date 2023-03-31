@@ -2,6 +2,11 @@ package com.oscarjrod.eurderapi.orders.domain;
 
 import com.oscarjrod.eurderapi.items.domain.Item;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,10 +25,18 @@ public class ItemGroup {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
+    @NotNull(message = "Item cannot be empty!")
+    @Valid
     private Item item;
 
+    @NotNull(message = "Amount cannot be empty!")
+    @Min(value = 0, message = "Amount must be greater than or equal to 0!")
     private long amount;
+    @NotNull(message = "Shipping date cannot be empty!")
+    @FutureOrPresent(message = "Shipping date must be in the present or future!")
     private LocalDate shippingDate;
+    @NotNull(message = "Current price cannot be empty!")
+    @DecimalMin(value = "0.01", message = "Current price must be greater than or at least equal to 0.01!")
     private BigDecimal currentPrice;
 
     public ItemGroup() {

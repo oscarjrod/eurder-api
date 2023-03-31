@@ -14,6 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BeanPropertyBindingResult;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -48,9 +51,13 @@ public class OrderControllerTest {
     void testCreateOrder() {
         when(orderService.createOrder(orderDto)).thenReturn(orderDto);
 
-        BigDecimal result = orderController.createOrder(orderDto);
+        ResponseEntity<?> responseEntity =
+                orderController.createOrder(orderDto,
+                        new BeanPropertyBindingResult(orderDto, "orderDto"));
+        BigDecimal result = (BigDecimal) responseEntity.getBody();
 
         Assertions.assertEquals(order.getTotalPrice(), result);
+        Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         verify(orderService, times(1)).createOrder(orderDto);
     }
 

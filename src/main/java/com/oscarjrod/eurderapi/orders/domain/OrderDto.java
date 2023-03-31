@@ -1,6 +1,10 @@
 package com.oscarjrod.eurderapi.orders.domain;
 
 import com.oscarjrod.eurderapi.customers.domain.Customer;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,9 +14,17 @@ import java.util.List;
 public class OrderDto {
 
     private Long id;
+    @NotNull(message = "Customer cannot be empty!")
+    @Valid
     private Customer customer;
+    @NotNull(message = "ItemGroups cannot be empty!")
+    @Valid
     private List<ItemGroupDto> itemGroups;
+    @NotNull(message = "Order date cannot be empty!")
+    @PastOrPresent(message = "Order date must be in the past or present!")
     private LocalDate orderDate;
+    @NotNull(message = "Total price cannot be empty!")
+    @DecimalMin(value = "0.01", message = "Total price must be greater than or at least equal to 0.01!")
     private BigDecimal totalPrice;
 
     private OrderDto() {

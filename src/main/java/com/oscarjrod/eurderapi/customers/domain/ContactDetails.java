@@ -1,6 +1,10 @@
 package com.oscarjrod.eurderapi.customers.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class ContactDetails {
@@ -8,8 +12,14 @@ public class ContactDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotBlank(message = "Email address cannot be empty!")
+    @Email(message = "Invalid email address format!")
     private String emailAddress;
+    @NotBlank(message = "Address cannot be empty!")
+    @Size(max = 100, message = "Address cannot be longer than 100 characters!")
     private String address;
+    @NotBlank(message = "Phone number cannot be empty!")
+    @Pattern(regexp = "\\d{10}", message = "Phone number must be a 10-digit number!")
     private String phoneNumber;
     @OneToOne(mappedBy = "contactDetails", cascade = CascadeType.ALL)
     private Customer customer;
