@@ -19,7 +19,7 @@ class CustomerMapperTest {
     @BeforeEach
     void setUp() {
         ContactDetails contactDetails = ContactDetails.createContactDetails(
-                "test@example.com", "123 Test Street", "555-1234");
+                "test@example.com", "123 Test Street", "0475963214");
         customer = Customer.createCustomer("John", "Doe", contactDetails);
         customerDto = customerMapper.toDTO(customer);
     }

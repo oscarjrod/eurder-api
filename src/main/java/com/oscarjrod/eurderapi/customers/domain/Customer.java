@@ -1,6 +1,9 @@
 package com.oscarjrod.eurderapi.customers.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Customer {
@@ -8,8 +11,13 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotBlank(message = "First name cannot be empty!")
+    @Size(max = 20, message = "First name cannot be longer than 20 characters!")
     private String firstName;
+    @NotBlank(message = "Last name cannot be empty!")
+    @Size(max = 20, message = "Last name cannot be longer than 20 characters!")
     private String lastName;
+    @Valid
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_details_id", referencedColumnName = "id")
     private ContactDetails contactDetails;

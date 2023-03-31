@@ -2,8 +2,11 @@ package com.oscarjrod.eurderapi.customers.api;
 
 import com.oscarjrod.eurderapi.customers.domain.CustomerDto;
 import com.oscarjrod.eurderapi.customers.service.CustomerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,10 +23,17 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public Long createCustomer(@RequestBody CustomerDto customerDto) {
-        return customerService.createCustomer(customerDto).getId();
+    public ResponseEntity<?> createCustomer(@Valid @RequestBody CustomerDto customerDto, BindingResult result) {
+        if (result.hasErrors()) {
+            List<String> errors = result.getFieldErrors().stream()
+                    .map(e -> String.format("%s: %s", e.getField(), e.getDefaultMessage()))
+                    .collect(Collectors.toList());
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        Long customerId = customerService.createCustomer(customerDto).getId();
+        return ResponseEntity.ok(customerId);
     }
 
     @ResponseStatus(HttpStatus.OK)

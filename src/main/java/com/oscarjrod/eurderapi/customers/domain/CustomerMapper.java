@@ -1,5 +1,6 @@
 package com.oscarjrod.eurderapi.customers.domain;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +14,7 @@ public class CustomerMapper {
     }
 
     // DTO => Customer
-    public Customer toCustomer(CustomerDto customerDto) {
+    public Customer toCustomer(@Valid CustomerDto customerDto) {
         return Customer.createCustomer(
                 customerDto.getFirstName(),
                 customerDto.getLastName(),

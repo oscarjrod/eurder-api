@@ -7,6 +7,9 @@ import com.oscarjrod.eurderapi.customers.service.CustomerService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BeanPropertyBindingResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +19,7 @@ import static org.mockito.Mockito.*;
 public class CustomerControllerTest {
 
     private final ContactDetails contactDetails = ContactDetails.createContactDetails(
-            "johndoe@example.com", "123 Main St, Anytown CA 12345", "+1 (555) 123-4567");
+            "johndoe@example.com", "123 Main St, Anytown CA 12345", "0475963214");
     private Customer customer;
     private CustomerDto customerDto;
     private CustomerDto customerDto2;
@@ -36,9 +39,13 @@ public class CustomerControllerTest {
     void testCreateCustomer() {
         when(customerService.createCustomer(customerDto)).thenReturn(CustomerDto.createCustomerDto(customer));
 
-        Long result = customerController.createCustomer(customerDto);
+        ResponseEntity<?> responseEntity =
+                customerController.createCustomer(customerDto,
+                        new BeanPropertyBindingResult(customerDto, "customerDto"));
+        Long result = (Long) responseEntity.getBody();
 
         Assertions.assertEquals(customer.getId(), result);
+        Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         verify(customerService, times(1)).createCustomer(customerDto);
     }
 
