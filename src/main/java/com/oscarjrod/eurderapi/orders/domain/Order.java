@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -74,7 +75,7 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    private static BigDecimal calculateOrderTotalPrice(List<ItemGroup> itemGroups) {
+    public static BigDecimal calculateOrderTotalPrice(List<ItemGroup> itemGroups) {
         return itemGroups.stream()
                 .map(ItemGroup::getItemGroupTotalPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
