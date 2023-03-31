@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.mockito.Mockito.*;
 
 public class ItemControllerTest {
@@ -20,7 +22,7 @@ public class ItemControllerTest {
     void setUp() {
         itemService = mock(ItemService.class);
         itemController = new ItemController(itemService);
-        item = Item.createItem("Nintendo Switch", "4K OLED Model", 500.0, 10);
+        item = Item.createItem("Nintendo Switch", "4K OLED Model", new BigDecimal("500.0"), 10);
         itemDto = ItemDto.createItemDto(item);
     }
 

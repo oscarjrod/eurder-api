@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.math.BigDecimal;
+
 @Entity
 public class Item {
     @Id
@@ -12,10 +14,10 @@ public class Item {
     private Long id;
     private String name;
     private String description;
-    private double price;
+    private BigDecimal price;
     private long stock;
 
-    public static Item createItem(String name, String description, double price, long stock) {
+    public static Item createItem(String name, String description, BigDecimal price, long stock) {
         Item item = new Item();
         item.setName(name);
         item.setDescription(description);
@@ -44,11 +46,11 @@ public class Item {
         this.description = description;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -75,22 +77,20 @@ public class Item {
         if (this == o) return true;
         if (!(o instanceof Item item)) return false;
 
-        if (Double.compare(item.getPrice(), getPrice()) != 0) return false;
         if (getStock() != item.getStock()) return false;
         if (getId() != null ? !getId().equals(item.getId()) : item.getId() != null) return false;
         if (getName() != null ? !getName().equals(item.getName()) : item.getName() != null) return false;
-        return getDescription() != null ? getDescription().equals(item.getDescription()) : item.getDescription() == null;
+        if (getDescription() != null ? !getDescription().equals(item.getDescription()) : item.getDescription() != null)
+            return false;
+        return getPrice() != null ? getPrice().equals(item.getPrice()) : item.getPrice() == null;
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = getId() != null ? getId().hashCode() : 0;
+        int result = getId() != null ? getId().hashCode() : 0;
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
-        temp = Double.doubleToLongBits(getPrice());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (getPrice() != null ? getPrice().hashCode() : 0);
         result = 31 * result + (int) (getStock() ^ (getStock() >>> 32));
         return result;
     }
