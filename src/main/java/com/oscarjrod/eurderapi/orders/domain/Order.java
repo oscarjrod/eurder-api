@@ -34,7 +34,7 @@ public class Order {
         Order order = new Order();
         order.setCustomer(customer);
         order.setTotalPrice(calculateOrderTotalPrice(itemGroups));
-        order.setItemGroups(itemGroups);
+        itemGroups.forEach(order::addItemGroup);
         order.setOrderDate(LocalDate.now());
         return order;
     }
@@ -53,10 +53,6 @@ public class Order {
 
     public List<ItemGroup> getItemGroups() {
         return itemGroups;
-    }
-
-    public void setItemGroups(List<ItemGroup> itemGroups) {
-        this.itemGroups = itemGroups;
     }
 
     public LocalDate getOrderDate() {
@@ -84,11 +80,6 @@ public class Order {
     public void addItemGroup(ItemGroup itemGroup) {
         itemGroup.setOrder(this);
         itemGroups.add(itemGroup);
-    }
-
-    public void removeItemGroup(ItemGroup itemGroup) {
-        itemGroups.remove(itemGroup);
-        itemGroup.setOrder(null);
     }
 
     @Override

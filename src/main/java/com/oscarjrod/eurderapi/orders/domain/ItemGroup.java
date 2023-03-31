@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class ItemGroup {
@@ -108,18 +109,14 @@ public class ItemGroup {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ItemGroup itemGroup)) return false;
-
-        if (getAmount() != itemGroup.getAmount()) return false;
-        if (getId() != null ? !getId().equals(itemGroup.getId()) : itemGroup.getId() != null) return false;
-        if (getOrder() != null ? !getOrder().equals(itemGroup.getOrder()) : itemGroup.getOrder() != null) return false;
-        if (getItem() != null ? !getItem().equals(itemGroup.getItem()) : itemGroup.getItem() != null) return false;
-        if (getShippingDate() != null ? !getShippingDate().equals(itemGroup.getShippingDate()) : itemGroup.getShippingDate() != null)
-            return false;
-        return getCurrentPrice() != null ? getCurrentPrice().equals(itemGroup.getCurrentPrice()) : itemGroup.getCurrentPrice() == null;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof ItemGroup other)) return false;
+        return Objects.equals(id, other.id) &&
+                Objects.equals(amount, other.amount) &&
+                Objects.equals(item, other.item);
     }
+
 
     @Override
     public int hashCode() {
