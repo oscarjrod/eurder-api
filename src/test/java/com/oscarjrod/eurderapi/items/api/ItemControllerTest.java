@@ -6,6 +6,9 @@ import com.oscarjrod.eurderapi.items.service.ItemService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BeanPropertyBindingResult;
 
 import java.math.BigDecimal;
 
@@ -30,9 +33,13 @@ public class ItemControllerTest {
     void testCreateItem() {
         when(itemService.createItem(itemDto)).thenReturn(ItemDto.createItemDto(item));
 
-        Long result = itemController.createItem(itemDto);
+        ResponseEntity<?> responseEntity =
+                itemController.createItem(itemDto,
+                        new BeanPropertyBindingResult(itemDto, "itemDto"));
+        Long result = (Long) responseEntity.getBody();
 
         Assertions.assertEquals(item.getId(), result);
+        Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         verify(itemService, times(1)).createItem(itemDto);
     }
 

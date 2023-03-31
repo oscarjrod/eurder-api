@@ -4,9 +4,12 @@ import com.oscarjrod.eurderapi.items.domain.Item;
 import com.oscarjrod.eurderapi.items.domain.ItemDto;
 import com.oscarjrod.eurderapi.items.domain.ItemMapper;
 import com.oscarjrod.eurderapi.items.repository.ItemRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 @Service
+@Validated
 public class ItemService {
 
     private final ItemRepository itemRepository;
@@ -18,7 +21,7 @@ public class ItemService {
         this.itemMapper = itemMapper;
     }
 
-    public ItemDto createItem(ItemDto itemDto) {
+    public ItemDto createItem(@Valid ItemDto itemDto) {
         Item createdItem = itemMapper.toItem(itemDto);
         Item savedItem = itemRepository.save(createdItem);
 
