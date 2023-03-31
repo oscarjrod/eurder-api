@@ -9,6 +9,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
@@ -25,7 +27,7 @@ class ItemIntegrationTest {
     void givenAnItem_whenAddingItemToController_thenRepositoryContainsThatItem() {
         //GIVEN
         ItemDto itemDto = ItemDto.createItemDto(
-                Item.createItem("Nintendo Switch", "4K OLED Model", 500.0, 10)
+                Item.createItem("Nintendo Switch", "4K OLED Model", new BigDecimal("500.0"), 10)
         );
 
         HttpHeaders headers = new HttpHeaders();

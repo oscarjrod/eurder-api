@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -32,7 +34,7 @@ class ItemServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        item = Item.createItem("Nintendo Switch", "4K OLED Model", 500.0, 10);
+        item = Item.createItem("Nintendo Switch", "4K OLED Model", new BigDecimal("500.0"), 10);
         itemDto = ItemDto.createItemDto(item);
     }
 
