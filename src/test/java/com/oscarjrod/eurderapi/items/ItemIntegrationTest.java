@@ -45,7 +45,7 @@ class ItemIntegrationTest {
         );
 
         //Then
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
 }

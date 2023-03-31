@@ -1,5 +1,6 @@
 package com.oscarjrod.eurderapi.customers.domain;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,7 +12,7 @@ public class ContactDetailsMapper {
     }
 
     // DTO => ContactDetails
-    public ContactDetails toContactDetails(ContactDetailsDto contactDetailsDto) {
+    public ContactDetails toContactDetails(@Valid ContactDetailsDto contactDetailsDto) {
         return ContactDetails.createContactDetails(
                 contactDetailsDto.getEmailAddress(),
                 contactDetailsDto.getAddress(),

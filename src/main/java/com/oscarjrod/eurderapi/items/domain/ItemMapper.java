@@ -1,5 +1,6 @@
 package com.oscarjrod.eurderapi.items.domain;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,7 +12,7 @@ public class ItemMapper {
     }
 
     // DTO => Item
-    public Item toItem(ItemDto itemDto) {
+    public Item toItem(@Valid ItemDto itemDto) {
         return Item.createItem(
                 itemDto.getName(),
                 itemDto.getDescription(),

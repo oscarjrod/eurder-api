@@ -1,10 +1,21 @@
 package com.oscarjrod.eurderapi.customers.domain;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 public class ContactDetailsDto {
 
     private Long id;
+    @NotBlank(message = "Email address cannot be empty!")
+    @Email(message = "Invalid email address format!")
     private String emailAddress;
+    @NotBlank(message = "Address cannot be empty!")
+    @Size(max = 100, message = "Address cannot be longer than 100 characters!")
     private String address;
+    @NotBlank(message = "Phone number cannot be empty!")
+    @Pattern(regexp = "\\d{10}", message = "Phone number must be a 10-digit number!")
     private String phoneNumber;
 
     public static ContactDetailsDto createContactDetailsDto(ContactDetails contactDetails) {

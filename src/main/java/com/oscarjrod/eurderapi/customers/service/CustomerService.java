@@ -5,12 +5,15 @@ import com.oscarjrod.eurderapi.customers.domain.Customer;
 import com.oscarjrod.eurderapi.customers.domain.CustomerDto;
 import com.oscarjrod.eurderapi.customers.domain.CustomerMapper;
 import com.oscarjrod.eurderapi.customers.repository.CustomerRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Validated
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
@@ -24,7 +27,7 @@ public class CustomerService {
         this.contactDetailsMapper = contactDetailsMapper;
     }
 
-    public CustomerDto createCustomer(CustomerDto customerDto) {
+    public CustomerDto createCustomer(@Valid CustomerDto customerDto) {
         Customer createdCustomer = customerMapper.toCustomer(customerDto);
         Customer savedCustomer = customerRepository.save(createdCustomer);
 

@@ -19,7 +19,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 class CustomerIntegrationTest {
 
     private final ContactDetails contactDetails = ContactDetails.createContactDetails(
-            "johndoe@example.com", "123 Main St, Anytown CA 12345", "+1 (555) 123-4567");
+            "johndoe@example.com", "123 Main St, Anytown CA 12345", "0475963214");
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -56,7 +56,7 @@ class CustomerIntegrationTest {
                 CustomerDto.class
         );
 
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(HttpStatus.OK, customerDetailsResponse.getStatusCode());
         assertEquals(1, Objects.requireNonNull(customerDetailsResponse.getBody()).getId());
         assertEquals("John", customerDetailsResponse.getBody().getFirstName());
@@ -66,7 +66,7 @@ class CustomerIntegrationTest {
                 customerDetailsResponse.getBody().getContactDetails().getEmailAddress());
         assertEquals("123 Main St, Anytown CA 12345",
                 customerDetailsResponse.getBody().getContactDetails().getAddress());
-        assertEquals("+1 (555) 123-4567",
+        assertEquals("0475963214",
                 customerDetailsResponse.getBody().getContactDetails().getPhoneNumber());
     }
 

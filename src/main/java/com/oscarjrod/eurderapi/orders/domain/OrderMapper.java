@@ -1,5 +1,6 @@
 package com.oscarjrod.eurderapi.orders.domain;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -23,7 +24,7 @@ public class OrderMapper {
     }
 
     // DTO => Order
-    public Order toOrder(OrderDto orderDto) {
+    public Order toOrder(@Valid OrderDto orderDto) {
         return Order.createOrder(
                 orderDto.getCustomer(),
                 orderDto.getItemGroups().stream()
