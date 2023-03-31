@@ -1,5 +1,6 @@
 package com.oscarjrod.eurderapi.orders.domain;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,7 +19,7 @@ public class ItemGroupMapper {
     }
 
     // DTO => ItemGroup
-    public ItemGroup toItemGroup(ItemGroupDto itemGroupDto) {
+    public ItemGroup toItemGroup(@Valid ItemGroupDto itemGroupDto) {
         return ItemGroup.createItemGroup(
                 itemGroupDto.getOrder(),
                 itemGroupDto.getItem(),
